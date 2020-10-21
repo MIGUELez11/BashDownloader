@@ -25,7 +25,7 @@ then
             fi
             for file in $FILES;
             do
-                if [ ! $file = "Books"]
+                if [ ! $file = "Books" ]
                 then
                     NAME=$(echo "$file" | sed -E "s/:space:/ /g")
                     NAME2=$(echo "$file" | rev | sed -E "s/\)[0-9]+\(:ecaps://" | rev | sed -E "s/:space:/_/g")
