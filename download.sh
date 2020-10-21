@@ -1,6 +1,6 @@
 DIR=$(echo $0 | sed -E "s/\/[A-Za-z]+.sh//g")
 CONF=$(pwd)
-USER=$(echo $(pwd)/user.conf)
+USER=$(echo $(pwd)/user.cnf)
 echo $1
 echo $USER
 if [ -f $USER ]
@@ -10,8 +10,8 @@ then
     USERDATA="$(echo $USERDATA | sed -E 's/ //')"
     if [ -z $USERDATA ]
     then
-        printf "\e[1;31mExpected user.conf to have a username and password\n\e[0m";
-        printf "Expected user.conf file with orly username on first line and password on second line\n"
+        printf "\e[1;31mExpected user.cnf to have a username and password\n\e[0m";
+        printf "Expected user.cnf file with orly username on first line and password on second line\n"
     else
         cd $DIR/safaribooks;
         $(echo python3 safaribooks.py --cred $USERDATA $1)
@@ -51,5 +51,5 @@ then
     fi
 else
     printf "\e[1;31mConfiguration file does not exist\n\e[0m";
-    printf "Expected user.conf file with orly username on first line and password on second line\n"
+    printf "Expected user.cnf file with orly username on first line and password on second line\n"
 fi
