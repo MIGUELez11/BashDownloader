@@ -17,28 +17,32 @@ then
         $(echo python3 safaribooks.py --cred $USERDATA $1)
         if [ -d "Books" ]
         then
-            FILES=$(find Books -d 1 | sed -E 's/ /\:space:/g')
+            FILES=$(find Books -maxdepth 1 | sed -E 's/ /\:space:/g')
+            FILESI=$(ls Books)
             if [ ! -d "$CONF/Books" ]
             then
                 mkdir -p $CONF/Books;
             fi
             for file in $FILES;
             do
-                NAME=$(echo "$file" | sed -E "s/:space:/ /g")
-                NAME2=$(echo "$file" | rev | sed -E "s/\)[0-9]+\(:ecaps://" | rev | sed -E "s/:space:/_/g")
-                FEXIST=$(echo find $CONF -name $NAME2)
-                if [ -d $CONF/$NAME2 ]
+                if [ ! $file = "Books"]
                 then
-                    i=1
-                    while [ -d $CONF/$NAME2$i ]
-                    do
-                        i=$((i+1))
-                    done
-                    $(mv "$NAME" $CONF/$NAME2$i)
-                    printf "\e[1;32mBook downloaded on $CONF/$NAME2$i\n\e[0m"
-                else
-                    $(mv "$NAME" $CONF/$NAME2)
-                    printf "\e[1;32mBook downloaded on $CONF/$NAME2\n\e[0m"
+                    NAME=$(echo "$file" | sed -E "s/:space:/ /g")
+                    NAME2=$(echo "$file" | rev | sed -E "s/\)[0-9]+\(:ecaps://" | rev | sed -E "s/:space:/_/g")
+                    FEXIST=$(echo find $CONF -name $NAME2)
+                    if [ -d $CONF/$NAME2 ]
+                    then
+                        i=1
+                        while [ -d $CONF/$NAME2$i ]
+                        do
+                            i=$((i+1))
+                        done
+                        $(mv "$NAME" $CONF/$NAME2$i)
+                        printf "\e[1;32mBook downloaded on $CONF/$NAME2$i\n\e[0m"
+                    else
+                        $(mv "$NAME" $CONF/$NAME2)
+                        printf "\e[1;32mBook downloaded on $CONF/$NAME2\n\e[0m"
+                    fi
                 fi
             done
             $(rm -rf Books)
