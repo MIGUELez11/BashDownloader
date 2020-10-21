@@ -1,8 +1,6 @@
-DIR=$(echo $0 | sed -E "s/\/[A-Za-z]+.sh//g")
+DIR=$(echo $0 | sed -E "s/\/[A-Za-z]+.sh$//g")
 CONF=$(pwd)
 USER=$(echo $(pwd)/user.cnf)
-echo $1
-echo $USER
 if [ -f $USER ]
 then
     printf "\e[1;32mConfiguration file exists\n\e[0m";
