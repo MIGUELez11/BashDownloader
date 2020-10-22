@@ -4,14 +4,14 @@ if [ "$OS" = "darwin" ]
 then
     if [ -z $ZDOTDIR ]
     then
-        FILE="~/.zshrc"
+        FILE="$HOME/.zshrc"
     else
         FILE=$(echo "$ZDOTDIR/.zshrc")
     fi
 else
-    FILE="~/.bashrc"
+    FILE="$HOME/.bashrc"
 fi
     echo alias orly="$(pwd)/download.sh" >> $FILE
 
 $(echo git clone https://github.com/lorenzodifuccia/safaribooks)
-$(echo pip3 install -r safaribooks/requirements.txt)
+$(echo pip3 install -r safaribooks/requirements.txt --user)
